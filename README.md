@@ -13,10 +13,10 @@ Download a matching macOS/Linux arm64/amd64 package from [Releases](https://gith
 From the extracted directory:
 
 ```sh
-sh install.sh /absolute/path/to/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.3.1"
+sh install.sh /absolute/path/to/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.4.0"
 ```
 
-Merge the printed configuration into CPA's existing `plugins.configs`; do not replace other plugin entries. The installer also saves `cpa-config-snippet.yaml` inside the new runtime directory. The instance pins `store.version: "0.3.1"` and points `runtime_dir` to that directory.
+Merge the printed configuration into CPA's existing `plugins.configs`; do not replace other plugin entries. The installer also saves `cpa-config-snippet.yaml` inside the new runtime directory. The instance pins `store.version: "0.4.0"` and points `runtime_dir` to that directory.
 
 The host needs ABI 1/schema 6, model routing, static executors, auth callbacks and `openai-image` support. Verified against `seastaradmin/CLIProxyAPI` on `enterprise-base`. Compatibility with every older CPA release is not implied. Installing only a dynamic library through a plugin store does not install the Python runtime; use the complete package above.
 
@@ -30,6 +30,12 @@ curl http://127.0.0.1:8889/v1/images/generations \
   -H 'Content-Type: application/json' \
   -d '{"model":"gpt-image-2-web","prompt":"A small blue circle on white","n":1,"response_format":"b64_json"}'
 ```
+
+## Management page
+
+After reloading, the CPA sidebar includes **ChatGPT 网页生图** (ChatGPT Web images). Refresh the management page if its menu list is cached. The plugin embeds its page and assets in the library; no separate frontend install is needed.
+
+Enter a CPA API key from API key management, describe the image, and optionally add up to 10 reference files. The page preserves reference order, previews inputs, and displays the original output dimensions with a download button. The key is used only in current page memory for same-origin `/v1/images/*` requests; it is never persisted or included in a URL. Refreshing clears it. Use an API key, not the management password. The public plugin resource routes serve static assets only and cannot read credentials or generate images.
 
 ## Reference images
 

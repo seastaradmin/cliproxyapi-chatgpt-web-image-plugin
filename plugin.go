@@ -194,12 +194,12 @@ func configure(raw []byte) error {
 func registration() any {
 	return map[string]any{
 		"schema_version": pluginabi.SchemaVersion,
-		"metadata": pluginapi.Metadata{Name: pluginID, Version: "0.3.1", Author: "Local", GitHubRepository: "https://github.com/seastaradmin/cliproxyapi-chatgpt-web-image-plugin", ConfigFields: []pluginapi.ConfigField{
+		"metadata": pluginapi.Metadata{Name: pluginID, Version: "0.4.0", Author: "Local", GitHubRepository: "https://github.com/seastaradmin/cliproxyapi-chatgpt-web-image-plugin", ConfigFields: []pluginapi.ConfigField{
 			{Name: "runtime_dir", Type: pluginapi.ConfigFieldTypeString, Description: "Installed local web image runtime directory."},
 			{Name: "route_gpt_image_2", Type: pluginapi.ConfigFieldTypeBoolean, Description: "Route gpt-image-2 image requests through ChatGPT Web in addition to gpt-image-2-web."},
 			{Name: "proxy_url", Type: pluginapi.ConfigFieldTypeString, Description: "Optional proxy for ChatGPT Web requests."},
 		}},
-		"capabilities": map[string]any{"model_provider": true, "model_router": true, "executor": true, "executor_model_scope": "static", "executor_input_formats": []string{"openai-image"}, "executor_output_formats": []string{"openai-image"}},
+		"capabilities": map[string]any{"management_api": true, "model_provider": true, "model_router": true, "executor": true, "executor_model_scope": "static", "executor_input_formats": []string{"openai-image"}, "executor_output_formats": []string{"openai-image"}},
 	}
 }
 
@@ -228,6 +228,10 @@ func handleMethod(method string, raw []byte) ([]byte, error) {
 		return execute(raw)
 	case pluginabi.MethodExecutorExecuteStream:
 		return nil, fail(400, "invalid_request_error", "Web image generation currently requires stream=false")
+	case pluginabi.MethodManagementRegister:
+		return okEnvelope(managementRegistration())
+	case pluginabi.MethodManagementHandle:
+		return managementResource(raw)
 	case pluginabi.MethodPluginQuiesce:
 		return okEnvelope(map[string]any{})
 	default:

@@ -9,17 +9,21 @@
 3. 在解压目录执行：
 
 ```sh
-sh install.sh /你的/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.3.1"
+sh install.sh /你的/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.4.0"
 ```
 
 4. 将脚本打印的 `chatgpt-web-image` 配置合并进 CPA 原有的 `plugins.configs`，并开启 `plugins.enabled`。不要覆盖其他插件配置。脚本也会把配置片段写入新运行目录的 `cpa-config-snippet.yaml`。
-5. 等待 CPA 重载，确认管理页面中插件版本为 `0.3.1`，且 `/v1/models` 出现 `gpt-image-2-web`。
+5. 等待 CPA 重载，确认管理页面中插件版本为 `0.4.0`，且 `/v1/models` 出现 `gpt-image-2-web`。
 
 支持 macOS/Linux，arm64/amd64。需要 CPA 支持 C ABI 1、协议 schema 6、模型路由、静态执行器和账号读取回调；已在 `seastaradmin/CLIProxyAPI` 的 `enterprise-base` 版本验证。不能假设任意旧版 CPA 都兼容。
 
 发布包包含动态库、Python 工作进程和安装脚本。CPA 商店仅安装动态库时不会自动准备 Python 运行目录，因此请按上述流程安装完整包。
 
 ## 使用
+
+CPA 重载后，左侧会出现 **ChatGPT 网页生图**。如果菜单未更新，刷新管理页面。页面已内嵌在插件动态库中，无需单独安装前端。
+
+在页面填写 CPA「API 密钥管理」中的 API Key 和画面描述，可添加最多 10 张参考图，预览并按编号使用。生成后显示原始像素尺寸并提供下载。Key 仅在当前页面内存中用于同源生图请求，不写入浏览器存储或 URL，刷新后需重新输入；不要填写管理密码。公开资源入口只提供静态页面，不会读取账号或执行生图。
 
 文生图：`POST /v1/images/generations`，请求示例：
 

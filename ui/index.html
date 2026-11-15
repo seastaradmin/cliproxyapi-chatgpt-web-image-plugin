@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ChatGPT 网页生图</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<main>
+  <header><div><p class="eyebrow">CPA · CHATGPT WEB</p><h1>ChatGPT 网页生图</h1><p class="subtitle">使用已登录的 free 账号，把描述和参考图变成一张新图。</p></div><span class="badge">gpt-image-2-web</span></header>
+  <div class="workspace">
+    <form id="generation-form" class="panel" autocomplete="off">
+      <h2>创作设置</h2>
+      <label for="api-key">CPA API Key</label>
+      <input id="api-key" type="password" placeholder="输入 CPA 的 API Key" autocomplete="off" required>
+      <p class="hint">使用 API 密钥管理中的 Key。仅在当前页面内存中使用，刷新后需重新输入。</p>
+      <label for="prompt">画面描述</label>
+      <textarea id="prompt" rows="5" placeholder="描述主体、场景、构图和风格；有参考图时，可以用“图一”“图二”指定它们的用途。" required></textarea>
+      <div class="label-row"><label for="reference-files">参考图 <span class="optional">可选</span></label><span id="reference-count">0 / 10</span></div>
+      <input id="reference-files" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+      <p class="hint">PNG / JPEG / WebP，最多 10 张，单张 ≤ 10 MiB，总文件建议 ≤ 23 MiB。按添加顺序编号。</p>
+      <div id="references" class="references"></div>
+      <div class="options">
+        <div><label for="size">画面比例</label><select id="size"><option value="">自动</option><option value="1024x1024">正方形</option><option value="1536x1024">横向</option><option value="1024x1536">纵向</option></select></div>
+        <div><label for="quality">画质提示</label><select id="quality"><option value="">自动</option><option value="high">高</option><option value="medium">中</option><option value="low">低</option></select></div>
+      </div>
+      <p class="hint">比例和画质作为网页提示，最终像素尺寸由 ChatGPT 决定；底层模型版本无法独立确认。</p>
+      <div class="actions"><button id="generate" type="submit">生成图片</button><button id="cancel" class="secondary" type="button" hidden>停止等待</button></div>
+      <p id="status" role="status" aria-live="polite">就绪。每次生成一张图片。</p>
+    </form>
+    <section class="panel result-panel" aria-label="生成结果">
+      <div class="result-header"><h2>生成结果</h2><a id="download" download="chatgpt-web-image.png" hidden>下载图片</a></div>
+      <div id="empty" class="empty"><span class="empty-icon">✧</span><h3>你的下一张图，从这里开始</h3><p>写下画面描述，或添加多张参考图。<br>生成通常需要几分钟，请保持页面打开。</p></div>
+      <img id="result" alt="生成的图片" hidden>
+      <p id="dimensions" class="hint"></p>
+      <p class="footnote">参考图会上传到所选 ChatGPT 账号；生成会话会保留在该账号中。</p>
+    </section>
+  </div>
+</main>
+</body>
+</html>
