@@ -9,11 +9,11 @@
 3. 在解压目录执行：
 
 ```sh
-sh install.sh /你的/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.3.0"
+sh install.sh /你的/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.3.1"
 ```
 
 4. 将脚本打印的 `chatgpt-web-image` 配置合并进 CPA 原有的 `plugins.configs`，并开启 `plugins.enabled`。不要覆盖其他插件配置。脚本也会把配置片段写入新运行目录的 `cpa-config-snippet.yaml`。
-5. 等待 CPA 重载，确认管理页面中插件版本为 `0.3.0`，且 `/v1/models` 出现 `gpt-image-2-web`。
+5. 等待 CPA 重载，确认管理页面中插件版本为 `0.3.1`，且 `/v1/models` 出现 `gpt-image-2-web`。
 
 支持 macOS/Linux，arm64/amd64。需要 CPA 支持 C ABI 1、协议 schema 6、模型路由、静态执行器和账号读取回调；已在 `seastaradmin/CLIProxyAPI` 的 `enterprise-base` 版本验证。不能假设任意旧版 CPA 都兼容。
 

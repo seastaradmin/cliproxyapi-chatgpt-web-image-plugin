@@ -13,10 +13,10 @@ Download a matching macOS/Linux arm64/amd64 package from [Releases](https://gith
 From the extracted directory:
 
 ```sh
-sh install.sh /absolute/path/to/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.3.0"
+sh install.sh /absolute/path/to/CPA/plugins "$HOME/.local/share/cpa/chatgpt-web-image-0.3.1"
 ```
 
-Merge the printed configuration into CPA's existing `plugins.configs`; do not replace other plugin entries. The installer also saves `cpa-config-snippet.yaml` inside the new runtime directory. The instance pins `store.version: "0.3.0"` and points `runtime_dir` to that directory.
+Merge the printed configuration into CPA's existing `plugins.configs`; do not replace other plugin entries. The installer also saves `cpa-config-snippet.yaml` inside the new runtime directory. The instance pins `store.version: "0.3.1"` and points `runtime_dir` to that directory.
 
 The host needs ABI 1/schema 6, model routing, static executors, auth callbacks and `openai-image` support. Verified against `seastaradmin/CLIProxyAPI` on `enterprise-base`. Compatibility with every older CPA release is not implied. Installing only a dynamic library through a plugin store does not install the Python runtime; use the complete package above.
 
